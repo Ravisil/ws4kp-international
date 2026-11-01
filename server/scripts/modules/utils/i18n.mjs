@@ -14,8 +14,9 @@ const weekdayLabel = (text) => capitalize(text.replace('-feira', ''));
 // nome do dia da semana para uma data JS (ex.: "Segunda", "Sábado")
 const weekdayName = (date, options = {}) => weekdayLabel(new Date(date).toLocaleDateString(LOCALE, { weekday: 'long', ...options }));
 
-// rosa dos ventos em português (L = Leste, O = Oeste)
-const COMPASS = ['N', 'NNE', 'NE', 'ENE', 'L', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'];
+// rosa dos ventos simplificada, com 8 direções (L = Leste, O = Oeste)
+const COMPASS = ['N', 'NE', 'L', 'SE', 'S', 'SO', 'O', 'NO'];
+const COMPASS_NAMES = ['Norte', 'Nordeste', 'Leste', 'Sudeste', 'Sul', 'Sudoeste', 'Oeste', 'Noroeste'];
 
 // condições do mar: chave interna (inglês) -> texto exibido
 const SEAS_LABELS = {
@@ -36,6 +37,7 @@ const seasLabel = (key) => SEAS_LABELS[key] ?? key;
 export {
 	LOCALE,
 	COMPASS,
+	COMPASS_NAMES,
 	weekdayName,
 	weekdayLabel,
 	capitalize,

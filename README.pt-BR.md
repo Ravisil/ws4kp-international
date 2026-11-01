@@ -36,7 +36,7 @@ Requer Node.js 18 ou superior. O site abre em <http://localhost:8080/>.
 
 - Toda a interface (`views/`): títulos das telas, rótulos, botões, menus, configurações e rodapé.
 - As condições do tempo (códigos WMO do Open-Meteo), nomes dos dias da semana, fases da lua e datas, no formato brasileiro.
-- A rosa dos ventos: **N, NNE, NE, ENE, L, ESE, SE, SSE, S, SSO, SO, OSO, O, ONO, NO, NNO** (L = leste, O = oeste).
+- Os ventos usam só 8 siglas, fáceis de aprender: **N** (norte), **NE** (nordeste), **L** (leste), **SE** (sudeste), **S** (sul), **SO** (sudoeste), **O** (oeste) e **NO** (noroeste). O texto da Previsão Local escreve o nome por extenso, e a página traz uma legenda.
 - O texto da **Previsão Local**, os avisos e condições da **Previsão Marítima**, as unidades (nós, pés, metros) e o texto rolante das condições atuais.
 - A busca de cidades do Open-Meteo agora pede os nomes em português (`language=pt`).
 - As fontes pixeladas do WeatherStar não tinham os caracteres acentuados desenhados (ã, ç, é…); eles foram desenhados com o script [`tools/add-font-accents.py`](./tools/add-font-accents.py).

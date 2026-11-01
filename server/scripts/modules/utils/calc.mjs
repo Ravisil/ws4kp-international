@@ -1,10 +1,13 @@
-import { COMPASS } from './i18n.mjs';
+import { COMPASS, COMPASS_NAMES } from './i18n.mjs';
 
-// direção do vento (N, NE, L, SE, S, SO, O, NO...)
-const directionToNSEW = (Direction) => {
-	const val = Math.floor((Direction / 22.5) + 0.5);
-	return COMPASS[(val % 16)];
-};
+// direção do vento em graus -> posição na rosa dos ventos (0 a 7)
+const compassIndex = (Direction) => Math.floor((Direction / 45) + 0.5) % 8;
+
+// sigla da direção do vento, para espaços pequenos: N, NE, L, SE, S, SO, O, NO
+const directionToNSEW = (Direction) => COMPASS[compassIndex(Direction)];
+
+// nome da direção do vento por extenso: Norte, Nordeste, Leste...
+const directionToName = (Direction) => COMPASS_NAMES[compassIndex(Direction)];
 
 const calculateSeasCondition = (periodMarineData) => {
 	// Quick checks for extreme calm or choppy
@@ -123,6 +126,7 @@ export {
 	calculateSeasCondition,
 	getMarineAdvisory,
 	directionToNSEW,
+	directionToName,
 	haversineDistance,
 	distance,
 	wrap,

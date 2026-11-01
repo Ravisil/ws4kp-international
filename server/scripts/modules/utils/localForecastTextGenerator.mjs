@@ -1,4 +1,4 @@
-import { directionToNSEW } from './calc.mjs';
+import { directionToName } from './calc.mjs';
 import { weekdayName } from './i18n.mjs';
 
 import ConversionHelpers from './conversionHelpers.mjs';
@@ -54,7 +54,7 @@ function generateLocalForecast(dateStamp, hourlyData) {
 
 		const windSpeeds = periodData.map((entry) => ConversionHelpers.convertWindUnits(Math.round(entry.wind_speed_10m)));
 		const windDirs = periodData.map((entry) => entry.wind_direction_10m);
-		const windInfo = `VENTO ${directionToNSEW(getMostFrequent(windDirs))} DE ${Math.min(...windSpeeds)} A ${Math.max(...windSpeeds)} ${ConversionHelpers.getWindUnitText().toUpperCase()}`;
+		const windInfo = `VENTO DE ${directionToName(getMostFrequent(windDirs)).toUpperCase()}, ENTRE ${Math.min(...windSpeeds)} E ${Math.max(...windSpeeds)} ${ConversionHelpers.getWindUnitText().toUpperCase()}`;
 
 		const precipProbs = periodData.map((entry) => entry.precipitation_probability);
 		const maxPrecip = Math.max(...precipProbs);

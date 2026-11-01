@@ -5,39 +5,17 @@ import STATUS from './status.mjs';
 import { getWeatherIconFromIconLink } from './icons.mjs';
 import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
-import { getConditionText } from './utils/weather.mjs';
+import { getConditionText, getConditionLabel } from './utils/weather.mjs';
+import { weekdayName } from './utils/i18n.mjs';
 
 import ConversionHelpers from './utils/conversionHelpers.mjs';
 
 class ExtendedForecast extends WeatherDisplay {
 	constructor(navId, elemId) {
-		super(navId, elemId, 'Extended Forecast', true);
+		super(navId, elemId, 'Previsão Estendida', true);
 
 		// set timings
 		this.timing.totalScreens = 2;
-	}
-
-	static dayConditionTextSanitizer(text) {
-		let sanitizedText;
-		const spaces = text.split(' ');
-
-		if (spaces.length > 2) {
-			// text is too long, first word is
-			// likely "Slight" so we'll cut it.
-			sanitizedText = spaces.slice(0, 2).join(' ');
-
-			return sanitizedText;
-		}
-
-		// Special case for thunderstorm(s), as
-		// it clips into the other day panels
-		if (text.toLowerCase() === 'thunderstorm') {
-			// special case for thunderstorms
-			sanitizedText = 'Thunder';
-			return sanitizedText;
-		}
-
-		return text;
 	}
 
 	async getData(_weatherParameters) {
@@ -59,7 +37,7 @@ class ExtendedForecast extends WeatherDisplay {
 		const days = forecast.map((Day) => {
 			const fill = {
 				icon: { type: 'img', src: Day.icon },
-				condition: ExtendedForecast.dayConditionTextSanitizer(Day.text),
+				condition: Day.text,
 				date: Day.dayName,
 			};
 
@@ -87,14 +65,15 @@ const parse = (fullForecast) => {
 	const forecast = [];
 
 	Object.values(fullForecast.forecast).forEach((period) => {
-		const text = getConditionText(parseInt(period.weather_code, 10));
+		const code = parseInt(period.weather_code, 10);
+		const text = getConditionLabel(code, true);
 		const date = new Date(period.hours[11].time);
 
 		const fDay = {
 			text,
-			icon: getWeatherIconFromIconLink(text, fullForecast.timeZone, true),
+			icon: getWeatherIconFromIconLink(getConditionText(code), fullForecast.timeZone, true),
 			date,
-			dayName: date.toLocaleDateString('en-US', { weekday: 'long' }),
+			dayName: weekdayName(date),
 			high: ConversionHelpers.convertTemperatureUnits(period.temperature_2m_max),
 			low: ConversionHelpers.convertTemperatureUnits(period.temperature_2m_min),
 		};

@@ -25,7 +25,7 @@ export default class RadarBoundsCities {
                 bd:serviceParam wikibase:cornerEast "${pointCornerEast}"^^geo:wktLiteral .
             }
 
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "pt,en". }
             }
             ORDER BY DESC(?population)
             LIMIT ${limit}

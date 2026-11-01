@@ -8,6 +8,7 @@ import { celsiusToFahrenheit } from './utils/units.mjs';
 import { getWeatherRegionalIconFromIconLink } from './icons.mjs';
 import { preloadImg } from './utils/image.mjs';
 import { DateTime } from '../vendor/auto/luxon.mjs';
+import { weekdayLabel } from './utils/i18n.mjs';
 import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
 import * as utils from './regionalforecast-utils.mjs';
@@ -15,7 +16,7 @@ import { getPoint } from './utils/weather.mjs';
 
 class RegionalForecast extends WeatherDisplay {
 	constructor(navId, elemId) {
-		super(navId, elemId, 'Regional Forecast', false);
+		super(navId, elemId, 'Previsão Regional', false);
 		this.showOnProgress = false;
 
 		// timings
@@ -151,18 +152,18 @@ class RegionalForecast extends WeatherDisplay {
 		const titleTop = this.elem.querySelector('.title.dual .top');
 		const titleBottom = this.elem.querySelector('.title.dual .bottom');
 		if (this.screenIndex === 0) {
-			titleTop.innerHTML = 'Regional';
-			titleBottom.innerHTML = 'Observations';
+			titleTop.innerHTML = 'Observações';
+			titleBottom.innerHTML = 'Regionais';
 		} else {
 			const forecastDate = DateTime.fromISO(data[0][this.screenIndex].time);
 
 			// get the name of the day
-			const dayName = forecastDate.toLocaleString({ weekday: 'long' });
-			titleTop.innerHTML = 'Forecast for';
+			const dayName = weekdayLabel(forecastDate.toLocaleString({ weekday: 'long' }));
+			titleTop.innerHTML = 'Previsão para';
 			// draw the title
 			titleBottom.innerHTML = data[0][this.screenIndex].daytime
 				? dayName
-				: `${dayName} Night`;
+				: `${dayName} à noite`;
 		}
 
 		// draw the map

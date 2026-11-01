@@ -14,7 +14,7 @@ import ConversionHelpers from './utils/conversionHelpers.mjs';
 class Hourly extends WeatherDisplay {
 	constructor(navId, elemId, defaultActive) {
 		// special height and width for scrolling
-		super(navId, elemId, 'Hourly Forecast', defaultActive);
+		super(navId, elemId, 'Previsão Horária', defaultActive);
 
 		// set up the timing
 		this.timing.baseDelay = 20;
@@ -56,7 +56,9 @@ class Hourly extends WeatherDisplay {
 
 			// hour
 			const hour = startingHour.plus({ hours: index });
-			const formattedHour = hour.toLocaleString({ weekday: 'short', hour: 'numeric' });
+			const formattedHour = ConversionHelpers.getHoursFormat() === '12-hour'
+				? hour.toLocaleString({ weekday: 'short', hour: 'numeric', hourCycle: 'h12' })
+				: hour.toFormat('ccc HH\'h\'').replace('.', '');
 			fillValues.hour = formattedHour;
 
 			// temperatures, convert to strings with no decimal
@@ -68,7 +70,7 @@ class Hourly extends WeatherDisplay {
 			if (temperature !== feelsLike) fillValues.like = feelsLike;
 
 			// wind
-			let wind = 'Calm';
+			let wind = 'Calmo';
 			if (data.windSpeed > 0) {
 				const windSpeed = Math.round(ConversionHelpers.convertWindUnits(data.windSpeed)).toString();
 				const windDirection = directionToNSEW(data.windDirection);

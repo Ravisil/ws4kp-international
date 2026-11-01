@@ -27,7 +27,7 @@ class Radar extends WeatherDisplay {
 	static radarIterationCount = 3;
 
 	constructor(navId, elemId) {
-		super(navId, elemId, 'Local Radar', true);
+		super(navId, elemId, 'Radar Local', true);
 
 		this.okToDrawCurrentConditions = false;
 		this.okToDrawCurrentDateTime = false;
@@ -174,7 +174,7 @@ class Radar extends WeatherDisplay {
 		const markerContent = Radar.createWeatherIconHTML(
 			weatherData.icon,
 			ConversionHelpers.convertTemperatureUnits(weatherData.temperature),
-			weatherData.cityName || 'Current Location',
+			weatherData.cityName || 'Local atual',
 			this.weatherParameters.timeZone,
 		);
 
@@ -308,7 +308,7 @@ class Radar extends WeatherDisplay {
 		const timeElem = this.elem.querySelector('.time');
 		if (timeElem && frame.time) {
 			const frameTime = DateTime.fromSeconds(frame.time).setZone(this.weatherParameters.timeZone);
-			const pastOrForecast = frame.time > Date.now() / 1000 ? 'FORECAST' : 'PAST';
+			const pastOrForecast = frame.time > Date.now() / 1000 ? 'PREVISÃO' : 'PASSADO';
 			const timeString = frameTime.toLocaleString(DateTime.TIME_SIMPLE);
 			timeElem.innerHTML = `${pastOrForecast}: ${timeString}`;
 		}

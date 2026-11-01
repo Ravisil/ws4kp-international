@@ -3,13 +3,14 @@ import STATUS from './status.mjs';
 import { json } from './utils/fetch.mjs';
 import { getWeatherRegionalIconFromIconLink } from './icons.mjs';
 import { DateTime } from '../vendor/auto/luxon.mjs';
+import { weekdayLabel } from './utils/i18n.mjs';
 import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
 
 class TravelForecast extends WeatherDisplay {
 	constructor(navId, elemId, defaultActive) {
 		// special height and width for scrolling
-		super(navId, elemId, 'Travel Forecast', defaultActive);
+		super(navId, elemId, 'Previsão de Viagem', defaultActive);
 
 		// Remove from loading screen
 		this.showOnProgress = false;
@@ -100,7 +101,7 @@ class TravelForecast extends WeatherDisplay {
 
 				fillValues.icon = { type: 'img', src: icon };
 			} else {
-				fillValues.error = 'NO TRAVEL DATA AVAILABLE';
+				fillValues.error = 'SEM DADOS DE VIAGEM';
 			}
 			return this.fillTemplate('travel-row', fillValues);
 		}).filter((d) => d);
@@ -115,7 +116,7 @@ class TravelForecast extends WeatherDisplay {
 		// set up variables
 		const cities = this.data;
 
-		this.elem.querySelector('.header .title.dual .bottom').innerHTML = `For ${getTravelCitiesDayName(cities)}`;
+		this.elem.querySelector('.header .title.dual .bottom').innerHTML = `Para ${getTravelCitiesDayName(cities)}`;
 
 		this.finishDraw();
 	}
@@ -155,7 +156,7 @@ const getTravelCitiesDayName = (cities) => cities.reduce((dayName, city) => {
 		// today or tomorrow
 		const day = DateTime.local().plus({ days: (city.today) ? 0 : 1 });
 		// return the day
-		return day.toLocaleString({ weekday: 'long' });
+		return weekdayLabel(day.toLocaleString({ weekday: 'long' }));
 	}
 	return dayName;
 }, '');

@@ -6,10 +6,11 @@ import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
 import { getAirQualityPoint } from './utils/weather.mjs';
 import ExperimentalFeatures from './utils/experimental.mjs';
+import { weekdayName } from './utils/i18n.mjs';
 
 class AirQualityForecast extends WeatherDisplay {
 	constructor(navId, elemId, defaultActive) {
-		super(navId, elemId, 'Air Quality', defaultActive);
+		super(navId, elemId, 'Qualidade do Ar', defaultActive);
 		this.backgroundImage = loadImg('images/Background12.png');
 		this.nearbyCities = [];
 	}
@@ -252,7 +253,7 @@ const aggregateHourlyData = (hourlyDataArray, startingPosition, endingPosition) 
 
 const parseAirQualityData = (_weatherParameters, aqiData, coreData) => {
 	const todayDate = aqiData.hourly.time?.[0];
-	const todayName = todayDate ? new Date(todayDate).toLocaleDateString(undefined, { weekday: 'long', timeZone: _weatherParameters.timezone }) : 'Today';
+	const todayName = todayDate ? weekdayName(todayDate, { timeZone: _weatherParameters.timezone }) : 'Hoje';
 
 	const today = {
 		text: todayName,

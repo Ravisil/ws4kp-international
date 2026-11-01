@@ -1,7 +1,8 @@
 // base weather display class
 
 import STATUS, { calcStatusClass, statusClasses } from './status.mjs';
-import { DateTime } from '../vendor/auto/luxon.mjs';
+import { DateTime, Settings } from '../vendor/auto/luxon.mjs';
+import { LOCALE } from './utils/i18n.mjs';
 import {
 	msg, displayNavMessage, isPlaying, updateStatus, timeZone,
 } from './navigation.mjs';
@@ -9,6 +10,9 @@ import { parseQueryString } from './share.mjs';
 import settings from './settings.mjs';
 
 import ConversionHelpers from './utils/conversionHelpers.mjs';
+
+// datas e horas do luxon (dias da semana, meses...) passam a sair em português
+Settings.defaultLocale = LOCALE;
 
 class WeatherDisplay {
 	constructor(navId, elemId, name, defaultEnabled) {

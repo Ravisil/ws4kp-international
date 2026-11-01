@@ -76,7 +76,7 @@ const init = () => {
 		}),
 		minChars: 3,
 		showNoSuggestionNotice: true,
-		noSuggestionNotice: 'No results found. Please try a different search string.',
+		noSuggestionNotice: 'Nenhum resultado encontrado. Tente outro termo de busca.',
 		onSelect(suggestion) { autocompleteOnSelect(suggestion, this); },
 		width: 490,
 	});
@@ -215,7 +215,7 @@ const enterFullScreen = () => {
 	// change hover text and image
 	const img = document.querySelector(TOGGLE_FULL_SCREEN_SELECTOR);
 	img.src = 'images/nav/ic_fullscreen_exit_white_24dp_2x.png';
-	img.title = 'Exit fullscreen';
+	img.title = 'Sair da tela cheia';
 };
 
 const exitFullscreen = () => {
@@ -239,7 +239,7 @@ const exitFullScreenVisibilityChanges = () => {
 	// change hover text and image
 	const img = document.querySelector(TOGGLE_FULL_SCREEN_SELECTOR);
 	img.src = 'images/nav/ic_fullscreen_white_24dp_2x.png';
-	img.title = 'Enter fullscreen';
+	img.title = 'Entrar em tela cheia';
 	document.querySelector('#divTwc').classList.remove('no-cursor');
 	const divTwcBottom = document.querySelector('#divTwcBottom');
 	divTwcBottom.classList.remove('hidden');
@@ -255,10 +255,10 @@ const updateAudioButton = () => {
 	const btnAudio = document.querySelector('#ToggleMusic');
 	if (isAudioPlaying) {
 		btnAudio.src = 'images/nav/ic_volume_up_white_24dp_2x.png';
-		btnAudio.title = 'Pause Music';
+		btnAudio.title = 'Pausar música';
 	} else {
 		btnAudio.src = 'images/nav/ic_volume_off_white_24dp_2x.png';
-		btnAudio.title = 'Play Music';
+		btnAudio.title = 'Tocar música';
 	}
 };
 

@@ -3,6 +3,8 @@
 
 # WeatherStar 4000+ (International)
 
+> 🇧🇷 **Português:** leia o [README em português (pt-BR)](./README.pt-BR.md) — inclui como gerar a imagem Docker com o site traduzido.
+
 <div align="center"> 
     <img src="./overview.gif" alt="Weatherstar 4000+ International" width="600">
 </div>

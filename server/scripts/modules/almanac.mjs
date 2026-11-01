@@ -1,13 +1,14 @@
 // display sun and moon data
 import { loadImg, preloadImg } from './utils/image.mjs';
 import { DateTime } from '../vendor/auto/luxon.mjs';
+import { weekdayLabel } from './utils/i18n.mjs';
 import STATUS from './status.mjs';
 import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
 
 class Almanac extends WeatherDisplay {
 	constructor(navId, elemId) {
-		super(navId, elemId, 'Almanac', true);
+		super(navId, elemId, 'Almanaque', true);
 
 		// pre-load background images (returns promises)
 		this.backgroundImage0 = loadImg('images/BackGround3_1.png');
@@ -121,8 +122,8 @@ class Almanac extends WeatherDisplay {
 		const Tomorrow = Today.plus({ days: 1 });
 
 		// sun and moon data
-		this.elem.querySelector('.day-1').innerHTML = Today.toLocaleString({ weekday: 'long' });
-		this.elem.querySelector('.day-2').innerHTML = Tomorrow.toLocaleString({ weekday: 'long' });
+		this.elem.querySelector('.day-1').innerHTML = weekdayLabel(Today.toLocaleString({ weekday: 'long' }));
+		this.elem.querySelector('.day-2').innerHTML = weekdayLabel(Tomorrow.toLocaleString({ weekday: 'long' }));
 		this.elem.querySelector('.rise-1').innerHTML = DateTime.fromJSDate(info.sun[0].sunrise).toLocaleString(DateTime.TIME_SIMPLE).toLowerCase();
 		this.elem.querySelector('.rise-2').innerHTML = DateTime.fromJSDate(info.sun[1].sunrise).toLocaleString(DateTime.TIME_SIMPLE).toLowerCase();
 		this.elem.querySelector('.set-1').innerHTML = DateTime.fromJSDate(info.sun[0].sunset).toLocaleString(DateTime.TIME_SIMPLE).toLowerCase();
@@ -131,10 +132,10 @@ class Almanac extends WeatherDisplay {
 		const days = info.moon.map((MoonPhase) => {
 			const fill = {};
 
-			const date = MoonPhase.date.toLocaleString({ month: 'short', day: 'numeric' });
+			const date = MoonPhase.date.toFormat('dd/LL');
 
 			fill.date = date;
-			fill.type = MoonPhase.phase;
+			fill.type = MOON_PHASE_LABELS[MoonPhase.phase] ?? MoonPhase.phase;
 			fill.icon = { type: 'img', src: imageName(MoonPhase.phase) };
 
 			return this.fillTemplate('day', fill);
@@ -157,6 +158,14 @@ class Almanac extends WeatherDisplay {
 		});
 	}
 }
+
+// nomes exibidos das fases da lua (as chaves 'First', 'Full'... são internas)
+const MOON_PHASE_LABELS = {
+	First: 'Crescente',
+	Full: 'Cheia',
+	Last: 'Minguante',
+	New: 'Nova',
+};
 
 const imageName = (type) => {
 	switch (type) {

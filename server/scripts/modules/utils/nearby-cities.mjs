@@ -25,7 +25,7 @@ export default class NearbyCities {
                 BIND(geof:longitude(?coords) AS ?lon)
                 FILTER(?city != wd:${cityCode})
                 SERVICE wikibase:label {
-                    bd:serviceParam wikibase:language "en".
+                    bd:serviceParam wikibase:language "pt,en".
                 }
             }
             ORDER BY DESC(?population)

@@ -5,13 +5,13 @@ import { directionToNSEW } from './utils/calc.mjs';
 import { getWeatherIconFromIconLink } from './icons.mjs';
 import WeatherDisplay from './weatherdisplay.mjs';
 import { registerDisplay } from './navigation.mjs';
-import { getConditionText } from './utils/weather.mjs';
+import { getConditionText, getConditionLabel } from './utils/weather.mjs';
 
 import ConversionHelpers from './utils/conversionHelpers.mjs';
 
 class CurrentWeather extends WeatherDisplay {
 	constructor(navId, elemId) {
-		super(navId, elemId, 'Current Conditions', true);
+		super(navId, elemId, 'Condições Atuais', true);
 		// pre-load background image (returns promise)
 		this.backgroundImage = loadImg('images/BackGround1_1.png');
 	}
@@ -34,30 +34,31 @@ class CurrentWeather extends WeatherDisplay {
 	async drawCanvas() {
 		super.drawCanvas();
 
-		let condition = getConditionText(this.data.TextConditions);
+		// o ícone usa o texto em inglês (chave interna); a tela mostra o texto em português
+		let condition = getConditionLabel(this.data.TextConditions);
 		if (condition.length > 15) {
-			condition = shortConditions(condition);
+			condition = getConditionLabel(this.data.TextConditions, true);
 		}
 
-		const iconImage = getWeatherIconFromIconLink(condition, this.data.timeZone);
+		const iconImage = getWeatherIconFromIconLink(getConditionText(this.data.TextConditions), this.data.timeZone);
 		const pressureArrow = getPressureArrow(this.data);
 
 		const fill = {
 			temp: this.data.Temperature + String.fromCharCode(176),
 			condition,
-			wind: this.data.WindDirection.padEnd(3, '') + this.data.WindSpeed.toString().padStart(3, ' '),
+			wind: this.data.WindDirection.padEnd(3, ' ') + this.data.WindSpeed.toString().padStart(3, ' '),
 			location: this.data.city,
 			humidity: `${this.data.Humidity}%`,
 			dewpoint: this.data.DewPoint + String.fromCharCode(176),
-			ceiling: (this.data.Ceiling === 0 ? 'Unlimited' : this.data.Ceiling + this.data.CeilingUnit),
+			ceiling: (this.data.Ceiling === 0 ? 'Ilimitado' : this.data.Ceiling + this.data.CeilingUnit),
 			visibility: this.data.Visibility + this.data.VisibilityUnit,
 			pressure: `${this.data.Pressure}${this.data.PressureUnit}${pressureArrow}`,
-			cloud: this.data.CloudCover ? `${this.data.CloudCover}%` : 'N/A',
-			uv: this.data.UV ? this.data.UV : 'N/A',
+			cloud: this.data.CloudCover ? `${this.data.CloudCover}%` : 'N/D',
+			uv: this.data.UV ? this.data.UV : 'N/D',
 			icon: { type: 'img', src: iconImage },
 		};
 
-		if (this.data.WindGust) fill['wind-gusts'] = `Gusts to ${this.data.WindGust}`;
+		if (this.data.WindGust) fill['wind-gusts'] = `Rajadas de ${this.data.WindGust}`;
 
 		const area = this.elem.querySelector('.main');
 
@@ -84,25 +85,6 @@ const getPressureArrow = (data) => {
 	if (data.PressureDirection === 'rising') arrow = '<img class="pressure-arrow" src=\'images/pressure-arrow.png\'></img>';
 	if (data.PressureDirection === 'falling') arrow = '<img class="pressure-arrow invert-pressure-arrow" src=\'images/pressure-arrow.png\'></img>';
 	return arrow;
-};
-
-const shortConditions = (_condition) => {
-	let condition = _condition;
-	condition = condition.replace(/Light/g, 'L');
-	condition = condition.replace(/Heavy/g, 'H');
-	condition = condition.replace(/Partly/g, 'P');
-	condition = condition.replace(/Mostly/g, 'M');
-	condition = condition.replace(/Few/g, 'F');
-	condition = condition.replace(/Thunderstorm/g, 'T\'storm');
-	condition = condition.replace(/ in /g, '');
-	condition = condition.replace(/Vicinity/g, '');
-	condition = condition.replace(/ and /g, ' ');
-	condition = condition.replace(/Freezing Rain/g, 'Frz Rn');
-	condition = condition.replace(/Freezing/g, 'Frz');
-	condition = condition.replace(/Unknown Precip/g, '');
-	condition = condition.replace(/L Snow Fog/g, 'L Snw/Fog');
-	condition = condition.replace(/ with /g, '/');
-	return condition;
 };
 
 const getCurrentWeatherByHourFromTime = (data) => {

@@ -1,8 +1,9 @@
-// wind direction
+import { COMPASS } from './i18n.mjs';
+
+// direção do vento (N, NE, L, SE, S, SO, O, NO...)
 const directionToNSEW = (Direction) => {
 	const val = Math.floor((Direction / 22.5) + 0.5);
-	const arr = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-	return arr[(val % 16)];
+	return COMPASS[(val % 16)];
 };
 
 const calculateSeasCondition = (periodMarineData) => {
@@ -42,33 +43,33 @@ function getMarineAdvisory(periodMarineData, dailyWindMinMaxInKnots) {
 
 	// Advisory based on wave height alone
 	if (periodMarineData.waveHeight >= 1.2 && periodMarineData.waveHeight < 2.1) {
-		advisory = 'Small Craft Advisory';
+		advisory = 'Aviso: pequenas embarcações';
 	}
 
 	if (periodMarineData.waveHeight >= 2.1 && periodMarineData.waveHeight < 4) {
-		advisory = 'Rough Seas Advisory';
+		advisory = 'Aviso de mar revolto';
 	}
 
 	if (periodMarineData.waveHeight >= 4) {
-		advisory = 'Hazardous Seas Warning';
+		advisory = 'Alerta de mar perigoso';
 	}
 
 	const maxWind = dailyWindMinMaxInKnots[periodMarineData.text.toLowerCase()].max;
 
 	// Wind Modifiers
 	if (maxWind >= 20 && maxWind < 34) {
-		advisory += ' (Wind)';
+		advisory += ' (Vento)';
 	} else if (maxWind >= 34 && maxWind < 48) {
-		advisory += ' (Gale)';
+		advisory += ' (Ventania)';
 	} else if (maxWind >= 48) {
-		advisory += ' (Storm)';
+		advisory += ' (Tempestade)';
 	}
 
 	// Additional rough surf warning for short-period steep waves
 	if (periodMarineData.waveHeight >= 1.5 && periodMarineData.swellPeriod < 5) {
 		// overwrite advisory if it exists
 		advisory = '';
-		advisory = 'Rough Surf Advisory';
+		advisory = 'Aviso de ressaca';
 	}
 
 	// if advisory is too short, it's likely a wind modifier

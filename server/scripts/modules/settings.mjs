@@ -23,63 +23,63 @@ const settings = {
 
 const init = () => {
 	// Customizable measurement units
-	settings.windUnits = new Setting('windUnits', 'Wind Units', 'select', 2, windUnitsChange, true, [
+	settings.windUnits = new Setting('windUnits', 'Unidade de vento', 'select', 2, windUnitsChange, true, [
 		[1, 'm/s'],
 		[2, 'km/h'],
-		[3, 'knots'],
+		[3, 'nós'],
 		[4, 'mph'],
 		[5, 'bft']
 	]);
-	settings.marineWindUnits = new Setting('marineWindUnits', 'Wind Units (Marine)', 'select', 1, marineWindUnitsChange, true, [
-		[1, 'knots'],
+	settings.marineWindUnits = new Setting('marineWindUnits', 'Unidade de vento (marítimo)', 'select', 1, marineWindUnitsChange, true, [
+		[1, 'nós'],
 		[2, 'm/s'],
 	]);
-	settings.marineWaveHeightUnits = new Setting('marineWaveHeightUnits', 'Wave Height Units', 'select', 1, marineWaveHeightUnitsChange, true, [
-		[1, 'feet'],
-		[2, 'meters'],
+	settings.marineWaveHeightUnits = new Setting('marineWaveHeightUnits', 'Unidade de altura das ondas', 'select', 1, marineWaveHeightUnitsChange, true, [
+		[1, 'pés'],
+		[2, 'metros'],
 	]);
-	settings.temperatureUnits = new Setting('temperatureUnits', 'Temperature Units', 'select', 1, temperatureChangeUnits, true, [
+	settings.temperatureUnits = new Setting('temperatureUnits', 'Unidade de temperatura', 'select', 1, temperatureChangeUnits, true, [
 		[1, 'C'],
 		[2, 'F'],
 		[3, 'K'],
 	]);
-	settings.distanceUnits = new Setting('distanceUnits', 'Distance Units', 'select', 1, distanceChangeUnits, true, [
+	settings.distanceUnits = new Setting('distanceUnits', 'Unidade de distância', 'select', 1, distanceChangeUnits, true, [
 		[1, 'km'],
 		[2, 'mi'],
 		[3, 'ft'],
-		[4, 'meters'],
+		[4, 'metros'],
 		[5, 'bananas'],
 	]);
-	settings.pressureUnits = new Setting('pressureUnits', 'Pressure Units', 'select', 1, pressureChangeUnits, true, [
+	settings.pressureUnits = new Setting('pressureUnits', 'Unidade de pressão', 'select', 1, pressureChangeUnits, true, [
 		[1, 'hPa'],
 		[2, 'inHG'],
 		[3, 'mmHG'],
 	]);
-	settings.hoursFormat = new Setting('hoursFormat', 'Hours Format', 'select', 2, hoursChangeFormat, true, [
-		[1, '12-hour'],
-		[2, '24-hour'],
+	settings.hoursFormat = new Setting('hoursFormat', 'Formato de hora', 'select', 2, hoursChangeFormat, true, [
+		[1, '12 horas'],
+		[2, '24 horas'],
 	]);
 
-	settings.speed = new Setting('speed', 'Speed', 'select', 1.0, null, true, [
-		[0.5, 'Very Fast'],
-		[0.75, 'Fast'],
+	settings.speed = new Setting('speed', 'Velocidade', 'select', 1.0, null, true, [
+		[0.5, 'Muito rápida'],
+		[0.75, 'Rápida'],
 		[1.0, 'Normal'],
-		[1.25, 'Slow'],
-		[1.5, 'Very Slow'],
+		[1.25, 'Lenta'],
+		[1.5, 'Muito lenta'],
 	]);
 	settings.experimentalFeatures = new Setting(
 		'experimentalFeatures',
-		'Experimental Features <a href="https://github.com/mwood77/ws4kp-international?tab=readme-ov-file#updates-in-1100" target="_blank" rel="noopener noreferrer">(info)</a>',
+		'Recursos experimentais <a href="https://github.com/mwood77/ws4kp-international?tab=readme-ov-file#updates-in-1100" target="_blank" rel="noopener noreferrer">(informações)</a>',
 		'checkbox',
 		false,
 		experimentalFeaturesChange,
 		true,
 	);
-	settings.hideWebamp = new Setting('hideWebamp', 'Hide Webamp (Winamp)', 'checkbox', false, hideWebampChange, true);
-	settings.scanLines = new Setting('scanLines', 'Enable Scan Lines', 'checkbox', false, scanLinesChange, true);
+	settings.hideWebamp = new Setting('hideWebamp', 'Ocultar Webamp (Winamp)', 'checkbox', false, hideWebampChange, true);
+	settings.scanLines = new Setting('scanLines', 'Ativar linhas de varredura', 'checkbox', false, scanLinesChange, true);
 
-	settings.wide = new Setting('wide', 'Widescreen', 'checkbox', false, wideScreenChange, true);
-	settings.kiosk = new Setting('kiosk', 'Kiosk', 'checkbox', false, kioskChange, false);
+	settings.wide = new Setting('wide', 'Tela larga', 'checkbox', false, wideScreenChange, true);
+	settings.kiosk = new Setting('kiosk', 'Modo quiosque', 'checkbox', false, kioskChange, false);
 
 	// generate html objects
 	const settingHtml = Object.values(settings).map((d) => d.generate());

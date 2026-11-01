@@ -1,4 +1,4 @@
-<%- include('header.ejs', { title:'Marine Forecast', hasTime: true }) %>
+<%- include('header.ejs', { titleDual:{ top: 'Previsão' , bottom: 'Marítima' }, hasTime: true }) %>
 <div class="main has-scroll marine-forecast">
     <div class="advisory-container">
         <div class="advisory template">  
@@ -8,11 +8,11 @@
 
     <div class="title-and-day-container">
         <div class="api-failure-container">
-            <div class="message">MARINE API FAILURE</div>
+            <div class="message">FALHA NA API MARÍTIMA</div>
         </div>
         <div class="title-container">
-            <div class="title">WINDS:</div>
-            <div class="title seas">SEAS:</div>
+            <div class="title">VENTOS:</div>
+            <div class="title seas">MAR:</div>
         </div>
         <div class="day-container">
             <div class="day template">  

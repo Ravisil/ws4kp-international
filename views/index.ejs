@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="utf-8" />
   <title>WeatherStar 4000+ International</title>
-  <meta name="description" content="Web based WeatherStar 4000 simulator that reports current and forecast weather conditions plus a few extras!" />
+  <meta name="description" content="Simulador web do WeatherStar 4000 que mostra as condições atuais e a previsão do tempo, além de alguns extras!" />
   <meta name="keywords" content="WeatherStar 4000+" />
   <meta name="author" content="Michael Wood" />
   <meta name="application-name" content="WeatherStar 4000+ International" />
@@ -75,13 +75,13 @@
 
 
   <div id="divQuery">
-		<input id="txtAddress" type="text" value="" placeholder="Zip or City, State" />
+		<input id="txtAddress" type="text" value="" placeholder="CEP ou Cidade, Estado" />
 		<div class="buttons">
-			<button id="btnGetGps" type="button" title="Get GPS Location"><img src="images/nav/ic_gps_fixed_black_18dp_1x.png" class="light"/>
+			<button id="btnGetGps" type="button" title="Obter localização por GPS"><img src="images/nav/ic_gps_fixed_black_18dp_1x.png" class="light"/>
 				<img src="images/nav/ic_gps_fixed_white_18dp_1x.png" class="dark"/>
 			</button>
-			<button id="btnGetLatLng" type="submit">GO</button>
-			<button id="btnClearQuery" type="reset">Reset</button>
+			<button id="btnGetLatLng" type="submit">IR</button>
+			<button id="btnClearQuery" type="reset">Limpar</button>
 		</div>
   </div>
   <div id="version" style="display:none">
@@ -94,7 +94,7 @@
         <div>
           <div class="title">WeatherStar 4000+ (Intl)</div>
 					<div class="version">v<%- version %></div>
-          <div class="instructions">Enter your location above to continue</div>
+          <div class="instructions">Digite sua localização acima para continuar</div>
         </div>
       </div>
       <div id="progress-html" class="weather-display">
@@ -146,16 +146,16 @@
     <div id="divTwcBottom">
       <div id="divTwcBottomLeft">
         <img id="NavigateMenu" class="navButton" src="images/nav/ic_menu_white_24dp_2x.png" title="Menu" />
-        <img id="NavigatePrevious" class="navButton" src="images/nav/ic_skip_previous_white_24dp_2x.png" title="Previous" />
-        <img id="NavigateNext" class="navButton" src="images/nav/ic_skip_next_white_24dp_2x.png" title="Next" />
-        <img id="NavigatePlay" class="navButton" src="images/nav/ic_play_arrow_white_24dp_2x.png" title="Play" />
+        <img id="NavigatePrevious" class="navButton" src="images/nav/ic_skip_previous_white_24dp_2x.png" title="Anterior" />
+        <img id="NavigateNext" class="navButton" src="images/nav/ic_skip_next_white_24dp_2x.png" title="Próximo" />
+        <img id="NavigatePlay" class="navButton" src="images/nav/ic_play_arrow_white_24dp_2x.png" title="Reproduzir" />
       </div>
       <div id="divTwcBottomMiddle">
-        <img id="NavigateRefresh" class="navButton" src="images/nav/ic_refresh_white_24dp_2x.png" title="Refresh" />
+        <img id="NavigateRefresh" class="navButton" src="images/nav/ic_refresh_white_24dp_2x.png" title="Atualizar" />
       </div>
       <div id="divTwcBottomRight">
-        <img id="ToggleMusic" class="navButton" src="images/nav/ic_volume_off_white_24dp_2x.png" title="Toggle Music" />
-        <img id="ToggleFullScreen" class="navButton" src="images/nav/ic_fullscreen_white_24dp_2x.png" title="Enter Fullscreen" />
+        <img id="ToggleMusic" class="navButton" src="images/nav/ic_volume_off_white_24dp_2x.png" title="Ligar/desligar música" />
+        <img id="ToggleFullScreen" class="navButton" src="images/nav/ic_fullscreen_white_24dp_2x.png" title="Entrar em tela cheia" />
       </div>
     </div>
   </div>
@@ -166,26 +166,26 @@
   </div> -->
 
   <div class="info">
-    <a class="github-button" href="https://github.com/mwood77/ws4kp-international" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star mwood77/ws4kp-international on GitHub">Star</a>
-    <a class="github-button" href="https://github.com/mwood77/ws4kp-international/fork" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork mwood77/ws4kp-international on GitHub">Fork</a>
+    <a class="github-button" href="https://github.com/mwood77/ws4kp-international" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Dar estrela em mwood77/ws4kp-international no GitHub">Star</a>
+    <a class="github-button" href="https://github.com/mwood77/ws4kp-international/fork" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fazer fork de mwood77/ws4kp-international no GitHub">Fork</a>
     <!-- <a class="github-button" href="https://github.com/mwood77" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Follow @mwood77 on GitHub">Follow @mwood77</a> -->
-    <a class="github-button" href="https://github.com/mwood77/ws4kp-international/issues" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-issue-opened" data-size="large" data-show-count="true" aria-label="Issue mwood77/ws4kp-international on GitHub">Issue</a>
-    <a class="github-button" href="https://github.com/sponsors/mwood77" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @mwood77 on GitHub">Sponsor</a>
+    <a class="github-button" href="https://github.com/mwood77/ws4kp-international/issues" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-issue-opened" data-size="large" data-show-count="true" aria-label="Abrir issue em mwood77/ws4kp-international no GitHub">Issue</a>
+    <a class="github-button" href="https://github.com/sponsors/mwood77" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Patrocinar @mwood77 no GitHub">Sponsor</a>
   </div>
 
   <div style="height: 50px; width:400px" id="webamp-app"></div>
 
   <div class="info">
-    This is a simulation of The Weather Channel's (TWC) WeatherStar 4000+
+    Esta é uma simulação do WeatherStar 4000+ do The Weather Channel (TWC)
     <br />
     <br />
-    Background info, linking, Q&A, other uses, and questions?<br />
-    - <a href="https://github.com/mwood77/ws4kp-international#weatherstar-4000-international" target="_blank">Check the readme</a>
+    Informações, links, perguntas e respostas, outros usos e dúvidas?<br />
+    - <a href="https://github.com/mwood77/ws4kp-international#weatherstar-4000-international" target="_blank">Veja o README (em inglês)</a>
   </div>
 
   <div class="info">
     <br />
-    Resources & data provided by:<br />
+    Recursos e dados fornecidos por:<br />
     <div style="display: flex; gap: 2em; flex-wrap: wrap;">
       <div>
         - <a href="https://open-meteo.com/en/docs" target="_blank">Open Meteo</a> <br />
@@ -201,38 +201,38 @@
     </div>
   </div>
 
-  <div class='heading'>Selected displays</div>
+  <div class='heading'>Telas selecionadas</div>
   <div id='enabledDisplays'>
 
   </div>
 
-	<div class='heading'>Settings</div>
+	<div class='heading'>Configurações</div>
 	<div id='settings'>
 	</div>
 
-	<div class='heading'>Sharing</div>
+	<div class='heading'>Compartilhar</div>
 	<div class='info'>
-		<a href='' id='share-link'>Copy Permalink</a> <span id="share-link-copied">Link copied to clipboard!</span>
+		<a href='' id='share-link'>Copiar link permanente</a> <span id="share-link-copied">Link copiado para a área de transferência!</span>
 		<div id="share-link-instructions">
-			Copy this long URL:
+			Copie esta URL longa:
 			<input type='text' id="share-link-url"></div>
 		</div>
 	</div>
 
-	<div class='heading'>Forecast Information</div>
+	<div class='heading'>Informações da previsão</div>
   <div id="divInfo">
-    Location: <span id="spanCity"></span> <span id="spanState"></span><br />
+    Local: <span id="spanCity"></span> <span id="spanState"></span><br />
   </div>
 
   <div id="divRefresh">
-    Last Update: <span id="spanLastRefresh">(None)</span><br />
-    <input id="chkAutoRefresh" name="chkAutoRefresh" type="checkbox" /><label id="lblRefreshCountDown" for="chkAutoRefresh">Auto Refresh: <span id="spanRefreshCountDown">--:--</span></label>
+    Última atualização: <span id="spanLastRefresh">(nenhuma)</span><br />
+    <input id="chkAutoRefresh" name="chkAutoRefresh" type="checkbox" /><label id="lblRefreshCountDown" for="chkAutoRefresh">Atualização automática: <span id="spanRefreshCountDown">--:--</span></label>
   </div>
 
-  <div class='heading'>Personal Weather Station Information</div>
+  <div class='heading'>Informações da estação meteorológica pessoal</div>
   <div id="divInfo">
-    Station Id: <span id="customSpanStationId"></span><br />
-    Last Update: <span id="customSpanLastRefresh">(None)</span><br />
+    ID da estação: <span id="customSpanStationId"></span><br />
+    Última atualização: <span id="customSpanLastRefresh">(nenhuma)</span><br />
   </div>
 
   <script type="module">

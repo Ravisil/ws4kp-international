@@ -84,7 +84,7 @@ const getMarinePoint = async (lat, lon) => {
 const getGeocoding = async (name) => {
 	try {
 		const numResults = 100;
-		return await json(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=${numResults}&language=en&format=json`);
+		return await json(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=${numResults}&language=pt&format=json`);
 	} catch (error) {
 		console.log(`Unable to get locality with value ${name}`);
 		console.error(error);
@@ -92,20 +92,88 @@ const getGeocoding = async (name) => {
 	}
 };
 
+// "text" é a chave interna em inglês (usada para escolher ícones, não alterar);
+// "label" é o texto exibido ao usuário, em português;
+// "short" é a versão curta, para espaços apertados da tela (máx. ~15 caracteres).
 const weatherConditions = [
-	{ codes: [0], text: ['Clear sky'] },
-	{ codes: [1, 2, 3], text: ['Mainly clear', 'Partly cloudy', 'Overcast'] },
-	{ codes: [45, 48], text: ['Fog', 'Depositing rime fog'] },
-	{ codes: [51, 53, 55], text: ['Light Drizzle', 'Moderate Drizzle', 'Dense Drizzle'] },
-	{ codes: [56, 57], text: ['Light Freezing Drizzle', 'Dense Freezing Drizzle'] },
-	{ codes: [61, 63, 65], text: ['Slight Rain', 'Moderate Rain', 'Heavy Rain'] },
-	{ codes: [66, 67], text: ['Light Freezing Rain', 'Heavy Freezing Rain'] },
-	{ codes: [71, 73, 75], text: ['Slight Snow fall', 'Moderate Snow fall', 'Heavy Snow fall'] },
-	{ codes: [77], text: ['Snow grains'] },
-	{ codes: [80, 81, 82], text: ['Slight Rain showers', 'Moderate Rain showers', 'Violent Rain showers'] },
-	{ codes: [85, 86], text: ['Slight Snow showers', 'Heavy Snow Showers'] },
-	{ codes: [95], text: ['Thunderstorm'] },
-	{ codes: [96, 99], text: ['Thunderstorm with slight hail', 'Thunderstorm with heavy hail'] },
+	{
+		codes: [0],
+		text: ['Clear sky'],
+		label: ['Céu limpo'],
+		short: ['Céu limpo'],
+	},
+	{
+		codes: [1, 2, 3],
+		text: ['Mainly clear', 'Partly cloudy', 'Overcast'],
+		label: ['Poucas nuvens', 'Parcialmente nublado', 'Nublado'],
+		short: ['Poucas nuvens', 'Nublado parcial', 'Nublado'],
+	},
+	{
+		codes: [45, 48],
+		text: ['Fog', 'Depositing rime fog'],
+		label: ['Neblina', 'Neblina com geada'],
+		short: ['Neblina', 'Neblina'],
+	},
+	{
+		codes: [51, 53, 55],
+		text: ['Light Drizzle', 'Moderate Drizzle', 'Dense Drizzle'],
+		label: ['Garoa fraca', 'Garoa moderada', 'Garoa densa'],
+		short: ['Garoa fraca', 'Garoa', 'Garoa forte'],
+	},
+	{
+		codes: [56, 57],
+		text: ['Light Freezing Drizzle', 'Dense Freezing Drizzle'],
+		label: ['Garoa congelante leve', 'Garoa congelante densa'],
+		short: ['Garoa gelada', 'Garoa gelada'],
+	},
+	{
+		codes: [61, 63, 65],
+		text: ['Slight Rain', 'Moderate Rain', 'Heavy Rain'],
+		label: ['Chuva fraca', 'Chuva moderada', 'Chuva forte'],
+		short: ['Chuva fraca', 'Chuva', 'Chuva forte'],
+	},
+	{
+		codes: [66, 67],
+		text: ['Light Freezing Rain', 'Heavy Freezing Rain'],
+		label: ['Chuva congelante leve', 'Chuva congelante forte'],
+		short: ['Chuva gelada', 'Chuva gelada'],
+	},
+	{
+		codes: [71, 73, 75],
+		text: ['Slight Snow fall', 'Moderate Snow fall', 'Heavy Snow fall'],
+		label: ['Neve fraca', 'Neve moderada', 'Neve forte'],
+		short: ['Neve fraca', 'Neve', 'Neve forte'],
+	},
+	{
+		codes: [77],
+		text: ['Snow grains'],
+		label: ['Grãos de neve'],
+		short: ['Grãos de neve'],
+	},
+	{
+		codes: [80, 81, 82],
+		text: ['Slight Rain showers', 'Moderate Rain showers', 'Violent Rain showers'],
+		label: ['Pancadas de chuva fracas', 'Pancadas de chuva moderadas', 'Pancadas de chuva violentas'],
+		short: ['Pancadas fracas', 'Pancadas', 'Pancadas fortes'],
+	},
+	{
+		codes: [85, 86],
+		text: ['Slight Snow showers', 'Heavy Snow Showers'],
+		label: ['Pancadas de neve fracas', 'Pancadas de neve fortes'],
+		short: ['Pancadas de neve', 'Pancadas de neve'],
+	},
+	{
+		codes: [95],
+		text: ['Thunderstorm'],
+		label: ['Trovoada'],
+		short: ['Trovoada'],
+	},
+	{
+		codes: [96, 99],
+		text: ['Thunderstorm with slight hail', 'Thunderstorm with heavy hail'],
+		label: ['Trovoada com granizo', 'Trovoada com granizo forte'],
+		short: ['Trovoada e granizo', 'Trovoada e granizo'],
+	},
 ];
 
 const getConditionText = (code) => {
@@ -119,6 +187,13 @@ const getConditionText = (code) => {
 
 	console.log('unable to determine weather condition from code: ', code);
 	return `unknown weather condition with code: ${code}`;
+};
+
+// texto da condição em português, para exibição na tela
+const getConditionLabel = (code, short = false) => {
+	const conditionObject = weatherConditions.find((condition) => condition.codes.includes(code));
+	if (!conditionObject) return `condição desconhecida (código ${code})`;
+	return conditionObject[short ? 'short' : 'label'][conditionObject.codes.indexOf(code)];
 };
 
 /**
@@ -254,4 +329,5 @@ export {
 	getGeocoding,
 	aggregateWeatherForecastData,
 	getConditionText,
+	getConditionLabel,
 };
